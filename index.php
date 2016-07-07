@@ -81,22 +81,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="line1"> </div><br>
 		
 						<br>
-		<!--div class="banner">
 		
-		<section class="wrapper wow fadeInUp animated" data-wow-delay=".5s">
-		  <h2 >Gitse Enterprises is a distribution </h2><div class="popEffect">
-		  <h3 class="sentence">company having its reach all over
-			  <span> Kerala.</span>
-			  <span> Kerala.</span>
-			  <span> Kerala.</span>
-			  <span> Kerala.</span>
-
-			</div>
-		  </h3>
-		</section>
-	<a href="#" class="hvr-rectangle-out wow fadeInDown animated" data-wow-delay=".5s">Read More</a>
-
-		</div-->
 	</div>
 </div>
 <!--content-->
@@ -172,33 +157,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </div>
 			<div class="clearfix"></div>
 		</div>
-<!--		<div class="event-grid">
-			<div class="event-left event-left1 wow fadeInRight animated" data-wow-delay=".5s">
-				<a href="cp_fittings.html"><img src="images/pc2.jpg" class="img-responsive" alt=""></a>
-				<div class="clearfix"></div>
-				<div class="event-top event-t">
-					<div class="event-gr">
-						<h4><a href="cp_fittings.html">CP Fittings</a> </h4>
-						
-					</div>
-				</div>
-			</div>
-			<div class="event-right event-right1 wow fadeInLeft animated" data-wow-delay=".5s">
-				<a href="Wall_Putty_Primer12.html"><img src="images/logo2 (1).jpg" class="img-responsive" alt=""></a>
-				<div class="clearfix"></div>
-				<div class="event-top event-t1">
-					<div class="event-gr">
-						<h4><a href="Wall_Putty_Primer12.html">Wall Putty & Primer</a> </h4>
-						<h4><a href="Wall_Putty_Primer12.html">MYK Laticrete</a> </h4>
-                                                <h3><a href="Wall_Putty_Primer12.html">- Latafinish</a> </h3>
-						<h3><a href="Wall_Putty_Primer12.html">- Lataprimer</a> </h3>
-						<h3><a href="Wall_Putty_Primer12.html">- Vembanad</a> </h3>
-						<h3><a href="Wall_Putty_Primer12.html">- Alltek Paste Putty</a> </h3>
-					</div>                                     
-				</div>
-			</div>
-			<div class="clearfix"></div>
-		</div>-->
+
 		
 		</div>
 		</div>

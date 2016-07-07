@@ -47,14 +47,14 @@ if ($_POST) {
                     'message' => 'Image Sucessfully Edited!',
                     'type' => 'success'
                 );
-//                header('location:list_product1.php?id=' . $product_id);
+
                 die();
             } else {
                 $_SESSION['error'] = array(
                     'message' => "Image Upload Failed",
                     'type' => 'danger'
                 );
-//                header('location:list_product1.php?id=' . $product_id);
+
                 die();
             }
         } else {
@@ -62,7 +62,7 @@ if ($_POST) {
                 'message' => $err,
                 'type' => 'danger'
             );
-//            header('location:list_product1.php?id=' . $product_id);
+           
             die();
         }
     }

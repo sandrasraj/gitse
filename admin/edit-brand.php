@@ -7,7 +7,7 @@ ob_start();
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Gitse | Add Brand</title>
+        <title>Gitse | Add Products</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -46,14 +46,6 @@ ob_start();
 
         <!-- Bootstrap WYSIHTML5 -->
         <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
         <style>
             table{
                 width: 50% !important;
@@ -86,8 +78,8 @@ ob_start();
             }
         </style>
     </head>
-
-
+    
+    
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
             <?php include_once 'header.php'; ?>
@@ -99,136 +91,53 @@ ob_start();
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Brands
-                        <small>Add Brand</small>
+                        Products
+                        <small>Add Products</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Add Brand</li>
+                        <li class="active">Add Products</li>
                     </ol>
                 </section>
 
                 <?php
                 require_once 'functions.php';
                 require_once 'db.php';
+                if (isset($_GET['id'])) {
+                    $brand_id = sanatizeInput($_GET['id'], 'int');
+                }
+                
+                
                 if (isset($_POST['submit'])) {
-
-
-//
                     $brandname = sanatizeInput($_POST['brandname'], 'string');
-
-//                    
-//
-//                    if (empty($brandname)) {
-//                        $error .= 'Brand name cant be empty!<br/>';
-//                    }
-//
-//                }
                     $description = sanatizeInput($_POST['description'], 'string');
                     $create_date = date('Y-m-d');
                     $update_date = $create_date;
-                    // add product data in to product table
-                    $sqlbrands = sprintf("INSERT INTO brands SET
-                                brandname = '%s',
-                                description = '%s',
+                    $brand_id =sanatizeInput($_POST['id'], 'int');
+                    // update product data in to product table
+                    $sqlbrands = sprintf("UPDATE brands SET
+                                brandname= '%s',
+                                description= '%s',
                                 create_date= '%s',
-                                update_date= '%s'", $brandname, $description, $create_date, $update_date);
+                                update_date= '%s' WHERE id='%s'", $brandname, $description, $create_date, $update_date,$brand_id);
 
-                    $resultbrands = mysqli_query($link, $sqlbrands);
+                    $resultbrand = mysqli_query($link, $sqlbrands);
 //
-                    $id = mysqli_insert_id($link);
+//                            $id = mysqli_insert_id($link);
 //
                     if ($resultbrands) {
-
-
-
-                        // add product data in to product table
-
-
-
-
                         $_SESSION['error'] = array(
-                            'message' => 'brands Sucessfully Added!',
+                            'message' => 'brand Sucessfully Edited!',
                             'type' => 'success'
                         );
                     } else {
 
-                        $error .= "Error brands add<br/>";
+                        $error .= "Error brand Edited!br/>";
                         $_SESSION['error'] = array(
                             'message' => $error,
                             'type' => 'danger'
                         );
-                    }
-//              
-                    ?>
-
-
-                    <?php
-// Check if image file is a actual image or fake image
-                    //if (isset($_POST["submit"])) {
-                    $error = '';
-                    $target_dir = "images/";
-                    for ($i = 0; $i < 4; $i++) {
-                        $target_file = basename($_FILES["fileToUpload"]["name"][$i]);
-                        $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
-                        $target_file = $target_dir . date('Ymd-hms') . '-' . $i . '.' . $imageFileType;
-                        $uploadOk = 1;
-                        $check = filesize($_FILES["fileToUpload"]["tmp_name"][$i]);
-                        if ($check !== false) {
-//                        echo "File is an image - " . $check["mime"] . ".";
-                            $uploadOk = 1;
-                        } else {
-                            $error.= "File is not an image.<br>";
-                            $uploadOk = 0;
-                        }
-// Check if file already exists
-                        if (file_exists($target_file)) {
-                            $error .= "Sorry, file already exists.<br>";
-                            $uploadOk = 0;
-                        }
-// Check file size
-                        if ($_FILES["fileToUpload"]["size"][$i] > 5000000) {
-                            $error .= "Sorry, your file is too large.<br>";
-                            $uploadOk = 0;
-                        }
-// Allow certain file formats
-                        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-                            $error .= "Sorry, only JPG, JPEG, PNG & GIF files allowed.<br>";
-                            $uploadOk = 0;
-                        }
-// Check if $uploadOk is set to 0 by an error
-                        if ($uploadOk == 0) {
-                            $error .= "Sorry, your file was not uploaded.<br>";
-// if everything is ok, try to upload file
-                        } else {
-                            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$i], $target_file)) {
-                                
-                                $sqlproducts = sprintf("INSERT INTO images SET 
-                                brand_id   = '%s',
-                                name= '%s' ", $id, $target_file);
-
-                                $resultproducts = mysqli_query($link, $sqlproducts);
-                                $_SESSION['error'] = array(
-                                    'message' => 'All files has been uploaded.',
-                                    'type' => 'success'
-                                );
-                                
-                            } else {
-                                $error .= "Sorry, there was an error uploading your file.<br>";
-                            }
-                        }
-                        if ($error != '') {
-                            $_SESSION['error'] = array(
-                                'message' => $error,
-                                'type' => 'danger'
-                            );
-                            break;
-                        }
-                    }
-
-
-                      
-                }
+                }}
                 ?>
                 <!-- Main content -->
                 <section class="content">
@@ -237,7 +146,7 @@ ob_start();
                             <!-- general form elements -->
                             <div class="box box-primary">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Add Brands</h3>
+                                    <h3 class="box-title">Add products</h3>
                                 </div>
                                 <!-- /.box-header -->
                                 <!-- form start -->
@@ -245,28 +154,30 @@ ob_start();
                                 if (!empty($_SESSION['error'])) :
                                     echo flashMessage($_SESSION['error']['message'], $_SESSION['error']['type']);
                                     unset($_SESSION['error']);
-                                endif;
-                                ?>
+                                endif;     
 
+                                $brand_data_query = sprintf("SELECT * FROM brands WHERE id=%d", $brand_id);
+                                $brand_data_result = mysqli_query($link, $brand_data_query);
+                                $brand_data = mysqli_fetch_assoc($brand_data_result);
+                                ?>
+     
+                               
+                                
+                              
+                                
                                 <form role="form" method="POST" enctype="multipart/form-data" id="addForm">
+                                    <input id="id" name="id" value="<?= $brand_id ?>" hidden >
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Brand Name</label>
-                                            <input type="text" name="brandname" id="brandname" class="form-control" placeholder="Brand Name">
+                                            <input type="text" name="brandname" id="brandname" class="form-control" placeholder="brand Name" value="<?= $brand_data['brandname'] ?>">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Description</label>
-                                            <textarea placeholder="Your Message" name="description"required=""class="form-control" ></textarea>	
+                                            <textarea placeholder="Your Message" name="description"required=""class="form-control" ><?= $brand_data['description'] ?></textarea>	 
                                         </div>
-                                        <div class="form-group">
-                                            <label>Select Image</label>
-                                            <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                <span class="btn btn-default btn-file"><span>Choose file</span><input type="file" id="fileToUpload" name="fileToUpload[]" multiple=""/></span>
-                                            </div>
+                                        
                                         </div>
-
-
-                                    </div>
                                     <!-- /.box-body -->
 
                                     <div class="box-footer">

@@ -120,7 +120,7 @@
                                                      <td>
                                                         <a href="change-brand.php?id=<?= $brandsRow['id'] ?>" class="btn btn-default btn-success"> <i class="fa fa-edit"></i></a>
                                                     <td>
-                                                        <a href="edit-brand1.php?id=<?= $brandsRow['id'] ?>" class="btn btn-default btn-success"> <i class="fa fa-edit"></i></a>
+                                                        <a href="edit-brand.php?id=<?= $brandsRow['id'] ?>" class="btn btn-default btn-success"> <i class="fa fa-edit"></i></a>
                                                         <a href="javascript:void(0)" onclick="deleteConfirm('delete-brand.php?id=<?= $brandsRow['id'] ?>')" class="btn btn-default btn-danger"> <i class="fa fa-remove"></i></a>
                                                     </td>
                                                 </tr>
