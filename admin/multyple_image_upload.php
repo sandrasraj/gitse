@@ -29,9 +29,6 @@ if ($_POST) {
         if ($_FILES['fileToUpload']['size'] > $max_size * 1000) {
             $err .= '<br/>Maximum file size is: ' . $max_size . ' KB.';
         }
-
-//        $img_q = sprintf("DELETE FROM products WHERE image='%s'", $product_image_name);
-//        mysqli_query($link, $img_q);
         $uploadpath = 'images/' . 
         chmod($uploadpath, 0644);
         unlink($uploadpath);
@@ -47,14 +44,13 @@ if ($_POST) {
                     'message' => 'Image Sucessfully Edited!',
                     'type' => 'success'
                 );
-//                header('location:list_brand.php?id=' . $image_id);
                 die();
             } else {
                 $_SESSION['error'] = array(
                     'message' => "Image Upload Failed",
                     'type' => 'danger'
                 );
-//                header('location:list_brand.php?id=' . $image_id);
+
                 die();
             }
         } else {
@@ -62,7 +58,7 @@ if ($_POST) {
                 'message' => $err,
                 'type' => 'danger'
             );
-//            header('location:list_brand.php?id=' . $image_id);
+
             die();
         }
     }

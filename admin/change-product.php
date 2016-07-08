@@ -156,7 +156,6 @@
                 require_once 'functions.php';
                 require_once 'db.php';
                 $product_id = $_GET['id'];
-                
                 ?>
 
                 <!-- Main content -->
@@ -174,41 +173,38 @@
                                     <h3 class="box-title">Products</h3>
                                 </div>
                                 <?php
-                               
-                                $sqlProduct = sprintf("SELECT * from products WHERE id=%d",$product_id );
+                                $sqlProduct = sprintf("SELECT * from products WHERE id=%d", $product_id);
                                 $image_result = mysqli_query($link, $sqlProduct);
+                                ?>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <?php
+                                    if (!empty($_SESSION['error'])) :
+                                        echo flashMessage($_SESSION['error']['message'], $_SESSION['error']['type']);
+                                        unset($_SESSION['error']);
+                                    endif;
+                                    $i = 1;
                                     ?>
-                                    <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <?php
-                                        if (!empty($_SESSION['error'])) :
-                                            echo flashMessage($_SESSION['error']['message'], $_SESSION['error']['type']);
-                                            unset($_SESSION['error']);
-                                        endif;
-                                        $i = 1;
-                                        ?>
 
-                                        
-                                           
-                                        <center  style="padding: 10px;"><strong>Uploaded Images of this Brands</strong></center>
-                                        <div class="img_av">                                           
-                                            <?php
-                                            while ($image_row = mysqli_fetch_assoc($image_result)) {
-                                                ?>
-                                                <div class=" col-lg-3 col-md-3">
-                                                    <div class="hovereffect">
-                                                        <img class="img-responsive thumbnail" src="<?= $image_row['image'] ?>" alt="Product Image">
-                                                        <div class="overlay">
-                                                            <a class="info" href="#" onclick="singleImageUpload(<?= $image_row['id'] ?>)">CHANGE IMAGE</a>
-                                                        </div>
+                                    <center  style="padding: 10px;"><strong>Uploaded Images of this Brands</strong></center>
+                                    <div class="img_av">                                           
+                                        <?php
+                                        while ($image_row = mysqli_fetch_assoc($image_result)) {
+                                            ?>
+                                            <div class=" col-lg-3 col-md-3">
+                                                <div class="hovereffect">
+                                                    <img class="img-responsive thumbnail" src="<?= $image_row['image'] ?>" alt="Product Image">
+                                                    <div class="overlay">
+                                                        <a class="info" href="#" onclick="singleImageUpload(<?= $image_row['id'] ?>)">CHANGE IMAGE</a>
                                                     </div>
                                                 </div>
-                                                <?php
-                                            }
-                                            ?>
-                                        </div>
+                                            </div>
+                                            <?php
+                                        }
+                                        ?>
                                     </div>
-                               
+                                </div>
+
                                 <!-- /.box-body -->
                             </div>
                             <!-- /.box -->
@@ -297,44 +293,46 @@
         <!-- jquery form -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
         <script>
-                                                        
 
-                                                        function singleImageUpload(id) {
-                                                            $('#uploadmodal').modal();
-                                                            $('#uploadmodal #id').val(id);
-                                                        }
 
-                                                        $('#uploadmodal #fileToUpload').change(function () {
-                                                            var val = $('#uploadmodal #fileToUpload').val();
-                                                            $('#uploadmodal #chosen').text(val);
-                                                        });
-                                                        
-                                                        $('.progress').hide();
+                                                            function singleImageUpload(id) {
+                                                                $('#uploadmodal').modal();
+                                                                $('#uploadmodal #id').val(id);
+                                                            }
 
-                                                        $(document).ready(function () {
-                                                            $('#uploadForm').submit(function (e) {
-                                                                if ($('#fileToUpload').val()) {
-                                                                    e.preventDefault();
-                                                                    $('.progress').show();
-                                                                    $(this).ajaxSubmit({
-                                                                        target: '',
-                                                                        beforeSubmit: function () {
-                                                                            $(".progress-bar").width('0%');
-                                                                        },
-                                                                        uploadProgress: function (event, position, total, percentComplete) {
-                                                                            $(".progress-bar").width(percentComplete + '%');
-                                                                            $("#target").html('<div id="progress-status">' + percentComplete + ' %</div>')
-                                                                        },
-                                                                        success: function () {
-                                                                            $('#target').text("Upload Completed");
-                                                                            $('#uploadmodal').fadeOut(2500,function(){location.reload();});
-                                                                        },
-                                                                        resetForm: true
-                                                                    });
-                                                                    return false;
-                                                                }
+                                                            $('#uploadmodal #fileToUpload').change(function () {
+                                                                var val = $('#uploadmodal #fileToUpload').val();
+                                                                $('#uploadmodal #chosen').text(val);
                                                             });
-                                                        });
+
+                                                            $('.progress').hide();
+
+                                                            $(document).ready(function () {
+                                                                $('#uploadForm').submit(function (e) {
+                                                                    if ($('#fileToUpload').val()) {
+                                                                        e.preventDefault();
+                                                                        $('.progress').show();
+                                                                        $(this).ajaxSubmit({
+                                                                            target: '',
+                                                                            beforeSubmit: function () {
+                                                                                $(".progress-bar").width('0%');
+                                                                            },
+                                                                            uploadProgress: function (event, position, total, percentComplete) {
+                                                                                $(".progress-bar").width(percentComplete + '%');
+                                                                                $("#target").html('<div id="progress-status">' + percentComplete + ' %</div>')
+                                                                            },
+                                                                            success: function () {
+                                                                                $('#target').text("Upload Completed");
+                                                                                $('#uploadmodal').fadeOut(2500, function () {
+                                                                                    location.reload();
+                                                                                });
+                                                                            },
+                                                                            resetForm: true
+                                                                        });
+                                                                        return false;
+                                                                    }
+                                                                });
+                                                            });
         </script>
     </body>
 </html>

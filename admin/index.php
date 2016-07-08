@@ -31,7 +31,7 @@
         (!isset($_SESSION)) ? session_start() : null;
         if (isset($_SESSION['error'])) {
 
-            echo "<span style='color:#CB2430'/><b>" . $_SESSION['error']['message'] . "</b></span>";
+            "<span style='color:#CB2430'/><b>" . $_SESSION['error']['message'] . "</b></span>";
 
          unset($_SESSION['error']);
           }
@@ -48,9 +48,7 @@
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
-            <label>
-              <input type="checkbox"> Remember Me
-            </label>
+            
           </div>
         </div>
         <!-- /.col -->
@@ -61,14 +59,10 @@
       </div>
     </form>
 
-    <!-- /.social-auth-links -->
-
-    <a href="#">I forgot my password</a><br>
-
   </div>
   <!-- /.login-box-body -->
 </div>
-<!-- /.login-box -->
+   
 
 <!-- jQuery 2.2.0 -->
 <script src="plugins/jQuery/jQuery-2.2.0.min.js"></script>

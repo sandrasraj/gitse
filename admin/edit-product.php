@@ -78,8 +78,8 @@ ob_start();
             }
         </style>
     </head>
-    
-    
+
+
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
             <?php include_once 'header.php'; ?>
@@ -106,25 +106,40 @@ ob_start();
                 if (isset($_GET['id'])) {
                     $product_id = sanatizeInput($_GET['id'], 'int');
                 }
-                
-                
+
+
                 if (isset($_POST['submit'])) {
                     $productsname = sanatizeInput($_POST['productsname'], 'string');
                     $description = sanatizeInput($_POST['description'], 'string');
                     $create_date = date('Y-m-d');
                     $update_date = $create_date;
-                    $product_id =sanatizeInput($_POST['id'], 'int');
+                    $product_id = sanatizeInput($_POST['id'], 'int');
                     // update product data in to product table
-                    $sqlproducts = sprintf("UPDATE products SET
+                   $sqlproducts = sprintf("UPDATE products SET
                                 productsname= '%s',
                                 description= '%s',
                                 create_date= '%s',
-                                update_date= '%s' WHERE id='%s'", $productsname, $description, $create_date, $update_date,$product_id);
-
+                                update_date= '%s' WHERE id='%s'", $productsname, $description ,$create_date, $update_date, $product_id);
+ 
                     $resultproducts = mysqli_query($link, $sqlproducts);
 //
 //                            $id = mysqli_insert_id($link);
 //
+                        $brandsArray = ($_POST['brand']);
+                        
+                        if (!empty($brandsArray)) {
+                            foreach ($brandsArray as $brand) {
+                              $sqlbrands = sprintf("UPDATE product_brand SET
+                            
+                                  brand_id = '%d' WHERE product_id='%d'",$brand,$product_id);
+              
+                                $resultbrand = mysqli_query($link, $sqlbrands);
+                                
+                            }
+                          
+                          
+                    }
+                    
                     if ($resultproducts) {
                         $_SESSION['error'] = array(
                             'message' => 'Products Sucessfully Edited!',
@@ -132,12 +147,13 @@ ob_start();
                         );
                     } else {
 
-                        $error .= "Error Products Edited!br/>";
+                        $error .= "Error Products Edited!<br/>";
                         $_SESSION['error'] = array(
                             'message' => $error,
                             'type' => 'danger'
                         );
-                }}
+                    }
+                }
                 ?>
                 <!-- Main content -->
                 <section class="content">
@@ -154,17 +170,13 @@ ob_start();
                                 if (!empty($_SESSION['error'])) :
                                     echo flashMessage($_SESSION['error']['message'], $_SESSION['error']['type']);
                                     unset($_SESSION['error']);
-                                endif;     
+                                endif;
 
                                 $product_data_query = sprintf("SELECT * FROM products WHERE id=%d", $product_id);
                                 $product_data_result = mysqli_query($link, $product_data_query);
                                 $product_data = mysqli_fetch_assoc($product_data_result);
                                 ?>
-     
-                               
-                                
-                              
-                                
+
                                 <form role="form" method="POST" enctype="multipart/form-data" id="addForm">
                                     <input id="id" name="id" value="<?= $product_id ?>" hidden >
                                     <div class="box-body">
@@ -176,8 +188,19 @@ ob_start();
                                             <label for="exampleInputEmail1">Description</label>
                                             <textarea placeholder="Your Message" name="description"required=""class="form-control" ><?= $product_data['description'] ?></textarea>	 
                                         </div>
+                                        <div class="form-group">
+                                       <select class="js-data-example-ajax form-control" name="brand[]" id="brand" multiple="">
+                                                <?php
+                                                $qrybrands = sprintf("SELECT * FROM brands");
+                                                $resbrands=mysqli_query($link, $qrybrands);
+                                                while ($rowb = mysqli_fetch_assoc($resbrands)) {
+                                                    ?>
+                                                    <option value="<?php echo $rowb['id']; ?>"><?php echo $rowb['brandname']; ?></option>
+
+                                                <?php } ?>
                                         
-                                        </div>
+                                       </select>
+                                    </div> </div>
                                     <!-- /.box-body -->
 
                                     <div class="box-footer">
@@ -194,7 +217,12 @@ ob_start();
             </div>
         </div>
         <!-- /.content-wrapper -->
-        <?php include_once 'footer.php' ?>
+<?php include_once 'footer.php' ?>
+         <script>
+            $(".js-data-example-ajax").select2({
+                
+            });
+        </script>
 
 
         <!-- AdminLTE App -->

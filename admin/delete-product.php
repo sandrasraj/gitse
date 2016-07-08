@@ -16,7 +16,7 @@ if($_GET){
         );
 
 
-        header('location:list-product1.php');
+        header('location:list-product.php');
         exit();
     } else {
         $_SESSION['error'] = array(
@@ -25,7 +25,7 @@ if($_GET){
         );
 
 
-        header('location:list-product1.php');
+        header('location:list-product.php');
         exit();
     }
 

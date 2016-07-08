@@ -6,8 +6,8 @@ if($_GET){
     $result = mysqli_query( $link, $query );
 
     //delete images 
-    $queryFlower = sprintf("DELETE FROM brands WHERE id=%d",$id);
-    $resultFlower = mysqli_query( $link, $queryFlower );
+    $queryimage = sprintf("DELETE FROM images WHERE brand_id=%d",$id);
+    $resultimage = mysqli_query( $link, $queryimage );
 
     if($result){
         $_SESSION['error'] = array(
@@ -23,7 +23,6 @@ if($_GET){
             'message' => "Failed to delete.",
             'type'    => 'danger'
         );
-
 
         header('location:list-brand.php');
         exit();

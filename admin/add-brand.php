@@ -112,18 +112,7 @@ ob_start();
                 require_once 'functions.php';
                 require_once 'db.php';
                 if (isset($_POST['submit'])) {
-
-
-//
                     $brandname = sanatizeInput($_POST['brandname'], 'string');
-
-//                    
-//
-//                    if (empty($brandname)) {
-//                        $error .= 'Brand name cant be empty!<br/>';
-//                    }
-//
-//                }
                     $description = sanatizeInput($_POST['description'], 'string');
                     $create_date = date('Y-m-d');
                     $update_date = $create_date;
@@ -140,12 +129,7 @@ ob_start();
 //
                     if ($resultbrands) {
 
-
-
                         // add product data in to product table
-
-
-
 
                         $_SESSION['error'] = array(
                             'message' => 'brands Sucessfully Added!',
@@ -161,7 +145,6 @@ ob_start();
                     }
 //              
                     ?>
-
 
                     <?php
 // Check if image file is a actual image or fake image
@@ -202,7 +185,7 @@ ob_start();
 // if everything is ok, try to upload file
                         } else {
                             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$i], $target_file)) {
-                                
+
                                 $sqlproducts = sprintf("INSERT INTO images SET 
                                 brand_id   = '%s',
                                 name= '%s' ", $id, $target_file);
@@ -212,7 +195,6 @@ ob_start();
                                     'message' => 'All files has been uploaded.',
                                     'type' => 'success'
                                 );
-                                
                             } else {
                                 $error .= "Sorry, there was an error uploading your file.<br>";
                             }
@@ -225,9 +207,6 @@ ob_start();
                             break;
                         }
                     }
-
-
-                      
                 }
                 ?>
                 <!-- Main content -->
