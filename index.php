@@ -1,3 +1,4 @@
+<?php include_once 'counter.php'; ?>
 <!DOCTYPE html>
 <html>
     <head>
